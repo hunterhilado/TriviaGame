@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>ASOIAF Trivia!</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="./assets/css/style.css">
+        <link rel="icon" type="image/gif" href="assets/images/housestark.jpg"/>
+
+    </head>
+
+    <body>
+
+        <div class="container">
+            <div class="header text-center">
+                <img src="https://fontmeme.com/permalink/200303/b02184faa6d04a6e60e3d7323ec1d59e.png">
+                <h1 class="text-center">A Song of Ice and Fire</h1>
+            </div>
+            <div class="text-center">
+                <p>"Winter is coming"</p>
+                <p>-Eddard Stark of House Stark, Lord of Winterfell and Warden of the North</p>
+            </div>
+            <div class="jumbotron-fluid">
+                <div class="container">
+                    <div id="game">
+                        <h2>Are you knowledgable enough to sit the Iron Throne?</h2>
+                        <p id="remaining-time" class="lead">Time-Left:
+                            <span id="timer"></span>
+                        </p>
+                        <p id="question" class="lead"></p>
+                    </div>
+                    <div id="results"></div>
+                </div>
+
+                <div class="content">
+                    <div id="choices" class="text-center">
+                        <button id="start" class="btn btn-secondary btn-lg">Begin</button>
+                        <div id="options"></div>
+
+                    </div>
+                </div>
+
+            </div>
+            <!-- /container -->
+
+            <!-- jQuery CDN-->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+            <!-- Bootstrap CDN -->
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"></script>
+            <script src="./assets/javascript/app.js"></script>
+        </body>
+    </body>
+</html>
