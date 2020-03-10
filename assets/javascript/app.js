@@ -6,9 +6,9 @@ $(document).ready(function(){
   $(document).on('click' , '.option', trivia.guessChecker);
   
 })
-
+// instead of having a var for the variables and questions I found an easier way to put them all under the var trivia
 var trivia = {
-  // trivia properties
+  
   correct: 0,
   incorrect: 0,
   unanswered: 0,
@@ -44,56 +44,61 @@ var trivia = {
     q6: 'Bran',
     q7: 'Fire and blood'
   },
-  // trivia methods
-  // method to initialize game
+  // trivia functions
+  //start game fucntions
   startGame: function(){
-    // restarting game results
+    // restarting game to base 0 
     trivia.currentSet = 0;
     trivia.correct = 0;
     trivia.incorrect = 0;
     trivia.unanswered = 0;
+    //clears the trivia timer
     clearInterval(trivia.timerId);
     
-    // show game section
+    //shows the game along with the features of the game
     $('#game').show();
     
-    //  empty last results
+    //shows the results of the questions
     $('#results').html('');
     
-    // show timer
+    //shows the current timer in real time
     $('#timer').text(trivia.timer);
     
-    // remove start button
+    //removes the begin button once the game starts
     $('#start').hide();
-
+    //shows the remaing time left for the question
     $('#remaining-time').show();
     
-    // ask first question
+    //asks the first question in the array
     trivia.nextQuestion();
     
   },
-  // method to loop through and display questions and options 
+  // method to loop through the array and asks the following questions
   nextQuestion : function(){
     
-    // set timer to 20 seconds each question
+    // sets the timer to 10 seconds for each question
     trivia.timer = 10;
+    //removes the seconds left using the removeClass method
      $('#timer').removeClass('last-seconds');
+     //dispalyes the time left 
     $('#timer').text(trivia.timer);
     
-    // to prevent timer speed up
+    //prevents the timer from speeding up
     if(!trivia.timerOn){
+      //stating that the timer runs for 10 seconds
       trivia.timerId = setInterval(trivia.timerRunning, 1000);
     }
     
-    // gets all the questions then indexes the current questions
+    //gets all the questions then indexes the current questions
     var questionContent = Object.values(trivia.questions)[trivia.currentSet];
     $('#question').text(questionContent);
     
-    // an array of all the user options for the current question
+    //function to shows the user the array of current options for the question
     var questionOptions = Object.values(trivia.options)[trivia.currentSet];
     
-    // creates all the trivia guess options in the html
+    //shows all the options on the html page
     $.each(questionOptions, function(index, key){
+      //appends the options to the button class on the html
       $('#options').append($('<button class="option btn btn-secondary btn-lg">'+key+'</button>'));
     })
     
@@ -108,7 +113,7 @@ var trivia = {
           $('#timer').addClass('last-seconds');
         }
     }
-    // the time has run out and increment unanswered, run result
+    //if the time available runs out then run this logic
     else if(trivia.timer === -1){
       trivia.unanswered++;
       trivia.result = false;
@@ -116,37 +121,37 @@ var trivia = {
       resultId = setTimeout(trivia.guessResult, 1000);
       $('#results').html('<h3> You are too slow... '+ Object.values(trivia.answers)[trivia.currentSet] +'</h3>');
     }
-    // if all the questions have been shown end the game, show results
+    //once all the questions have been answered then show the results for the game
     else if(trivia.currentSet === Object.keys(trivia.questions).length){
       
       // adds results of game (correct, incorrect, unanswered) to the page
       $('#results')
-        .html('<h3>Thank you for playing!</h3>'+
+        .html('<h3>Winter has come!</h3>'+
         '<p>Correct: '+ trivia.correct +'</p>'+
         '<p>Incorrect: '+ trivia.incorrect +'</p>'+
         '<p>Unaswered: '+ trivia.unanswered +'</p>'+
         '<p>Winter is coming, and the dead come with it...</p>');
       
-      // hide game sction
+      //once the game is over it hides the actual game
       $('#game').hide();
       
-      // show start button to begin a new game
+      // has the begin button at the bottom to start over
       $('#start').show();
     }
     
   },
-  // method to evaluate the option clicked
+  //method to evaluate the option clicked in gen to result
   guessChecker : function() {
     
-    // timer ID for gameResult setTimeout
+    //timer ID for gameResult setTimeout
     var resultId;
     
-    // the answer to the current question being asked
+    //the answer to the current question being asked
     var currentAnswer = Object.values(trivia.answers)[trivia.currentSet];
     
-    // if the text of the option picked matches the answer of the current question, increment correct
+    //if the text of the option picked matches the answer of the current question, show correct
     if($(this).text() === currentAnswer){
-      // turn button green for correct
+      //turn button green for correct
       $(this).addClass('btn-success').removeClass('btn-info');
       
       trivia.correct++;
@@ -154,7 +159,7 @@ var trivia = {
       resultId = setTimeout(trivia.guessResult, 1000);
       $('#results').html('<h3>So far so good..</h3>');
     }
-    // else the user picked the wrong option, increment incorrect
+    // else the user picked the wrong option, show incorrect
     else{
       // turn button clicked red for incorrect
       $(this).addClass('btn-danger').removeClass('btn-info');
@@ -169,14 +174,14 @@ var trivia = {
   // method to remove previous question results and options
   guessResult : function(){
     
-    // increment to next question set
+    //go on to the next question in array
     trivia.currentSet++;
     
-    // remove the options and results
+    //remove the options and results
     $('.option').remove();
     $('#results h3').remove();
     
-    // begin next question
+    //begin next question
     trivia.nextQuestion();
      
   }
